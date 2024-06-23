@@ -1,0 +1,45 @@
+Given an array of integers nums and an integer limit, return the size of the longest non-empty subarray such that the absolute difference between any two elements of this subarray is less than or equal to limit.
+
+ 
+
+Example 1:
+
+Input: nums = [8,2,4,7], limit = 4
+Output: 2 
+
+
+j=-1
+        n=len(nums)
+        maxi=0
+        res=0
+        mini=float("inf")
+        for i in range(n):
+            # print(i,j)
+            if nums[i]>maxi:
+                maxi=nums[i]
+            if nums[i]<mini:
+                mini=nums[i]
+            if maxi-mini<=limit:
+                res=max(res,i-j)
+                continue
+                
+            else:
+                maxi=0
+                mini=float("inf")
+                for k in range(i,j,-1):
+                    # print(k,i)
+                    prevmini=mini
+                    prevmaxi=maxi
+                    if nums[k]>maxi:
+
+                        maxi=nums[k]
+                    if nums[k]<mini:
+                        mini=nums[k]
+                        # print(maxi,mini,k)
+                    if maxi-mini>limit:
+                        mini=prevmini
+                        maxi=prevmaxi
+                        print(j)
+                        j=k
+                        break
+        return res
